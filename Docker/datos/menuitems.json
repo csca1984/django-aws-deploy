@@ -1,0 +1,42 @@
+[
+{
+  "model": "boleto.menuitem",
+  "pk": 1,
+  "fields": {
+    "name": "Normas",
+    "slug": "normas",
+    "visible": true,
+    "order": 1
+  }
+},
+{
+  "model": "boleto.menuitem",
+  "pk": 2,
+  "fields": {
+    "name": "Boletos",
+    "slug": "boletos",
+    "visible": true,
+    "order": 2
+  }
+},
+{
+  "model": "boleto.menuitem",
+  "pk": 3,
+  "fields": {
+    "name": "Sorteo",
+    "slug": "sorteo",
+    "visible": false,
+    "order": 3
+  }
+},
+{
+  "model": "boleto.menuitem",
+  "pk": 4,
+  "fields": {
+    "name": "Resultados",
+    "slug": "resultados",
+    "visible": true,
+    "order": 4
+  }
+}
+]

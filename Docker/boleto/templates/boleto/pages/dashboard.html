@@ -1,0 +1,167 @@
+{% extends 'boleto/layout.html' %}
+
+{% block title %}Dashboard — Komuna Baratza{% endblock %}
+
+{% block content %}
+
+<style>
+  body {
+    background: #f4f6f9;
+  }
+
+  .dashboard {
+    padding: 20px;
+  }
+
+  .grid {
+    display: grid;
+    gap: 20px;
+  }
+
+  .grid-2 {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+
+  .grid-10 {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 8px;
+  }
+
+  .card {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.05);
+  }
+
+  .card h3 {
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #333;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat p {
+    font-size: 32px;
+    margin: 0;
+    font-weight: bold;
+  }
+
+  .stat small {
+    color: #777;
+  }
+
+  .ticket {
+    padding: 8px 0;
+    text-align: center;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 14px;
+  }
+
+  .ticket.ok {
+    background: #e8f7ef;
+    color: #1b7f5c;
+  }
+
+  .ticket.no {
+    background: #fdecea;
+    color: #b42318;
+  }
+
+  canvas {
+    max-height: 300px;
+  }
+</style>
+
+<div class="dashboard grid grid-2">
+
+  <!-- Totales -->
+  <div class="card stat">
+    <small>Total boletos vendidos</small>
+    <p>{{ total_vendidos }}</p>
+  </div>
+
+  <div class="card stat">
+    <small>Total ganado</small>
+    <p>€ {{ total_ganado }}</p>
+  </div>
+
+</div>
+
+<!-- Gráfica -->
+<div class="dashboard">
+  <div class="card">
+    <h3>📈 Boletos vendidos por día</h3>
+    <canvas id="ventasPorDia"></canvas>
+  </div>
+</div>
+
+<!-- Boletos en sorteo -->
+<div class="dashboard">
+  <div class="card">
+    <h3>🎟️ Boletos en el sorteo</h3>
+    <div class="grid-10">
+      {% for ticket in tickets_sorteo %}
+        <div class="ticket ok">{{ ticket.number }}</div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<!-- Boletos fuera del sorteo -->
+<div class="dashboard">
+  <div class="card">
+    <h3>⛔ Boletos fuera del sorteo</h3>
+    <div class="grid-10">
+      {% for ticket in tickets_no_sorteo %}
+        <div class="ticket no">{{ ticket.number }}</div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const labels = [
+    {% for item in boletos_por_dia %}
+      "{{ item.fecha }}",
+    {% endfor %}
+  ];
+
+  const data = [
+    {% for item in boletos_por_dia %}
+      {{ item.total }},
+    {% endfor %}
+  ];
+
+  new Chart(document.getElementById('ventasPorDia'), {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'Boletos vendidos',
+        data: data,
+        borderColor: '#3b82f6',
+        backgroundColor: 'rgba(59,130,246,.1)',
+        tension: 0.4,
+        fill: true
+      }]
+    },
+    options: {
+      plugins: {
+        legend: { display: false }
+      },
+      scales: {
+        y: { beginAtZero: true }
+      }
+    }
+  });
+</script>
+
+{% endblock %}

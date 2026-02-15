@@ -1,0 +1,9 @@
+.git
+db/
+.env
+db.tar
+docker-compose.yml
+docker-compose.yml_network
+__pycache__/
+*.pyc
+

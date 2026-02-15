@@ -1,0 +1,20 @@
+{% extends 'boleto/layout.html' %}
+
+{% block title %}Normas — Komuna Baratza{% endblock %}
+
+{% block content %}
+  <div class="card p-4 space-y-4">
+    <h2 class="text-2xl font-bold mb-2">Normas del Sorteo</h2>
+
+    <ol class="list-decimal list-inside space-y-2 text-gray-700">
+      <li>Los boletos se generarán a través del formulario habilitado en la sección <strong>Boletos</strong>.</li>
+      <li>Es obligatorio informar sobre los boletos vendidos para que estos sean incluidos en el sorteo</li>
+      <li>La opción <strong>“Descargar todos en PDF”</strong> permite obtener todos los boletos en un único archivo, el cual puede compartirse por WhatsApp o imprimirse.</li>
+      <li>El día del sorteo se utilizará una función aleatoria (la “mano inocente virtual”) para seleccionar al ganador entre los números vendidos.</li>
+    </ol>
+
+    <div class="mt-4 p-3 bg-gray-100 rounded-xl">
+      <p><strong>Propuesta:</strong> adquirir una cesta valorada en aproximadamente <strong>70 €</strong> como premio del sorteo.</p>
+    </div>
+  </div>
+{% endblock %}

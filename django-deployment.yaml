@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django-web
+  namespace: boleto
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: django-web
+  template:
+    metadata:
+      labels:
+        app: django-web
+    spec:
+      volumes:
+        - name: staticfiles
+          persistentVolumeClaim:
+            claimName: staticfiles-pvc
+      containers:
+        - name: django-web
+          image: django-boleto:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9000
+          envFrom:
+            - secretRef:
+                name: django-env
+          volumeMounts:
+            - mountPath: "/app/static"
+              name: staticfiles

@@ -1,0 +1,25 @@
+# Python
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+env/
+venv/
+*.sqlite3
+
+# Django
+*.log
+*.pot
+*.py[cod]
+db.sqlite3
+/staticfiles/
+media/
+docker-compose.yml_network
+Dockerfile.old
+Docker/db/
+db/
+db.tar
+# VSCode / IDE
+.vscode/
+.idea/
+.terraform/

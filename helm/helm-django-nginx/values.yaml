@@ -1,0 +1,44 @@
+replicaCount: 1
+namespace: boleto
+image:
+  repository: django-boleto
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  port: 9000
+
+envSecret: django-env
+
+persistence:
+  name: staticfiles
+  staticPvc: staticfiles-pvc
+  mountPath: "/app/static"
+  storage: 5Gi
+  accessModes: ReadWriteMany
+
+ingress:
+  enabled: true
+  host: boleto.local
+  entrypoint: web
+
+nginx:
+  app: nginx
+  mountPath: /etc/nginx/conf.d/default.conf
+  subPath: nginx.conf
+  port: 80
+  targetPort: 80
+
+
+env:
+  DEBUG: "False"
+  DJANGO_SECRET_KEY: "&8b4XF@Jc^6ZTL^UWu1yjLw40&Ssl3*C8T1o*tVUkdHWg^NpcI"
+  ALLOWED_HOSTS: "*"
+  POSTGRES_DB: "boleto_db"
+  POSTGRES_USER: "boleto_user"
+  POSTGRES_PASSWORD: "Fe3dqsE&Ez^L"
+  POSTGRES_HOST: "postgres"
+  POSTGRES_PORT: "5432"
+
+prefix: django
+app: web

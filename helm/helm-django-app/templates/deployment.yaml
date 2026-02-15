@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.prefix }}-{{ .Values.app }}
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.prefix }}-{{ .Values.app }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.prefix }}-{{ .Values.app }}
+    spec:
+      volumes:
+        - name: {{ .Values.persistence.name }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistence.staticPvc }}
+      containers:
+        - name: {{ .Values.prefix }}-{{ .Values.app }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.port }}
+          envFrom:
+            - secretRef:
+                name: {{ .Values.envSecret }}
+          volumeMounts:
+            - mountPath: {{ .Values.persistence.mountPath }}
+              name: {{ .Values.persistence.name }}

@@ -1,0 +1,33 @@
+{# Reusable ticket card fragment. Expects variables: title, number, message, date, image_url #}
+<div class="ticket-wrapper">
+  <!-- Marco cortable: `ticket-frame` contiene el boleto y marcas de corte -->
+  <div class="ticket-frame">
+    <span class="cut-mark tl" aria-hidden="true"></span>
+    <span class="cut-mark tr" aria-hidden="true"></span>
+    <span class="cut-mark bl" aria-hidden="true"></span>
+    <span class="cut-mark br" aria-hidden="true"></span>
+    <article class="ticket-card shadow-sm" role="article" aria-labelledby="ticket-{{ number }}-title">
+      <header class="ticket-header">
+        <div class="hero">
+          <img src="{{ image_url }}" alt="Imagen del boleto" class="hero-image">
+          <div class="hero-overlay">
+            <h3 id="ticket-{{ number }}-title" class="ticket-title">{{ title }}</h3>
+          </div>
+        </div>
+      </header>
+
+      <main class="ticket-main compact">
+        <div class="ticket-content text-center">
+          <div class="ticket-number" aria-label="Número de boleto">#{{ number }}</div>
+          <p class="ticket-message">{{ message }}</p>
+          <p class="ticket-message">Gracias por apoyar nuestra huerta comunitaria</p>
+          <p aria-label="Precio:">{{precio}}</p>
+        </div>
+      </main>
+
+      <footer class="ticket-footer text-center">
+        <div class="ticket-date"><strong>Sorteo:</strong> {{ date|date:"Y-m-d" }}</div>
+      </footer>
+    </article>
+  </div>
+</div>

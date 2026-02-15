@@ -1,0 +1,36 @@
+{% extends 'boleto/layout.html' %}
+
+{% block title %}Boleto ganador — Komuna Baratza{% endblock %}
+
+{% block content %}
+
+{% load static %}
+            {% static 'boleto/images/goteo.jpeg' as img %}
+    
+<div class="row mt-4">
+    
+    {% if hay_ganador %} 
+        <div class="text-center mb-4">
+            <h2 class="fw-bold text-success">🎉 ¡Enhorabuena al ganador! 🎉</h2>
+            <p class="fs-5">¡A disfrutar de tu cesta! Gracias por apoyar nuestra huerta comunitaria.</p>
+        </div>
+        
+        <div class="text-center mb-4">
+            <h2 class="fw-bold text-success">🎉 Zorionak irabazleari! 🎉</h2>
+            <p class="fs-5">Gozatu zure saskiaz! Eskerrik asko gure komunitateko baratza babesteagatik.</p>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-6 d-flex justify-content-center">
+                {% include 'boleto/includes/ticket_card.html' with title=title number=ganador message=message date=fecha image_url=img %}
+           </div>
+        </div>
+    {% else %}
+        <div class="col-12 text-center mt-5">
+            <h3>No hay boletos disponibles para seleccionar un ganador.</h3>
+            <p class="text-muted">Por favor agrega boletos con sorteo activo.</p>
+        </div>
+    {% endif %}
+
+</div>
+
+{% endblock %}

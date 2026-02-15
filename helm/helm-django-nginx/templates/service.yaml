@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.nginx.app }}-service
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.nginx.app }}-svc
+spec:
+  type: NodePort 
+  ports:
+  - port: {{ .Values.nginx.port }}
+    targetPort: {{ .Values.nginx.targetPort }}
+    #nodePort: 30005
+  selector:
+    app: {{ .Values.nginx.app }}

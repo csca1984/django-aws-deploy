@@ -1,0 +1,43 @@
+postgresql:
+  image:
+    registry: docker.io
+    repository: bitnami/postgresql
+    tag: latest
+
+  volumePermissions:
+    enabled: true
+    image:
+      registry: docker.io
+      repository: busybox
+      tag: latest
+
+  metrics:
+    enabled: true
+    image:
+      registry: docker.io
+      repository: bitnami/postgres-exporter
+      tag: latest
+
+  auth:
+    enablePostgresUser: true
+    username: boleto_user
+    password: "Fe3dqsE&Ez^L"
+    database: boleto_db
+    postgresPassword: "Fe3dqsE&Ez^L"
+
+  primary:
+    persistence:
+      enabled: true
+      size: 5Gi
+
+    podSecurityContext:
+      enabled: true
+
+    containerSecurityContext:
+      enabled: true
+
+  service:
+    type: ClusterIP
+    ports:
+      postgresql: 5432
+

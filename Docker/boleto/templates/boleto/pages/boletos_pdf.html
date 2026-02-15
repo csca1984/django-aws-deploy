@@ -1,0 +1,18 @@
+{% extends 'boleto/layout.html' %}
+
+{% block title %}Boletos — PDF{% endblock %}
+
+{% block content %}
+  <div class="container py-4">
+    <h2>Boletos - PDF</h2>
+    <div class="row mt-3">
+      {% load static %}
+      {% static 'boleto/images/goteo.jpeg' as img %}
+      {% for t in generated_tickets %}
+        <div class="col-12 col-md-6 mb-4 d-flex justify-content-center">
+          {% include 'boleto/includes/ticket_card.html' with title=t.title number=t.number message=t.message date=t.date image_url=img %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,108 @@
+.ticket-wrapper{max-width:520px}
+.ticket-card{
+  border-radius:12px;
+  overflow:hidden;
+  background:#ffffff;
+  font-family:'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+
+/* Hero */
+.hero{position:relative;height:160px;overflow:hidden}
+.hero-image{width:100%;height:100%;object-fit:cover}
+.hero-overlay{position:absolute;left:0;right:0;top:0;bottom:0;display:flex;align-items:flex-end;padding:14px 18px;background:linear-gradient(180deg,rgba(0,0,0,0) 35%, rgba(0,0,0,0.5) 100%)}
+.ticket-title{color:#fff;font-size:clamp(16px,2.2vw,24px);margin:0;font-weight:700}
+
+/* Compact main */
+.ticket-main.compact{display:flex;flex-direction:column;align-items:center;gap:6px;padding:18px}
+.ticket-content{display:flex;flex-direction:column;align-items:center}
+.ticket-number{font-size:clamp(34px,8vw,56px);font-weight:900;color:#0b2b2b;letter-spacing:1px}
+.ticket-message{font-size:1rem;color:#222;text-align:center;margin:8px 0 0}
+.ticket-date{color:#6b6b6b;font-size:0.95rem}
+
+.ticket-footer{background:#fff;border-top:1px solid #eee;padding:14px;text-align:center}
+
+/* Frame / cut marks */
+.ticket-frame{display:inline-block;padding:10px;margin:12px;border-radius:10px;position:relative;background:#ffffff;border:1.5px dashed #c9c9c9}
+.ticket-frame .ticket-card{border-radius:6px}
+.cut-mark{width:18px;height:18px;position:absolute;box-sizing:content-box}
+.cut-mark.tl{left:-10px;top:-10px;border-left:2px solid #9a9a9a;border-top:2px solid #9a9a9a}
+.cut-mark.tr{right:-10px;top:-10px;border-right:2px solid #9a9a9a;border-top:2px solid #9a9a9a}
+.cut-mark.bl{left:-10px;bottom:-10px;border-left:2px solid #9a9a9a;border-bottom:2px solid #9a9a9a}
+.cut-mark.br{right:-10px;bottom:-10px;border-right:2px solid #9a9a9a;border-bottom:2px solid #9a9a9a}
+
+/* Responsive adjustments */
+@media (max-width:991px){
+  .ticket-wrapper{max-width:460px}
+  .hero{height:140px}
+}
+@media (max-width:767px){
+  .ticket-wrapper{padding:10px;max-width:360px}
+  .hero{height:120px}
+  .ticket-number{font-size:40px}
+}
+
+/* Print layout helpers */
+@media print{
+  .print-area{display:grid;grid-template-columns:repeat(2,1fr);gap:12mm;padding:6mm}
+  .ticket-frame{margin:0;border:1.5px dashed #bdbdbd;padding:6mm}
+  .ticket-frame, .ticket-frame *{page-break-inside:avoid}
+  .ticket-card{box-shadow:none;border:none}
+  .hero-image{filter:none}
+}
+
+/* --- Site layout styles (reuse ticket visual language) --- */
+html,body{height:100%;background:#f6f7f9;color:#0b2b2b}
+body{font-family:'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;margin:0}
+
+header.bg-white{background:linear-gradient(180deg,#ffffff 0%, #fbfbfb 100%);border-bottom:1px solid #eee}
+.navbar-brand{font-weight:800;font-size:1.1rem;color:#0b2b2b;text-decoration:none}
+.nav{list-style:none;margin:0;padding:0;display:flex;gap:6px}
+.nav-item{display:block}
+.nav-link{display:inline-block;padding:8px 12px;border-radius:8px;color:#375a7f;text-decoration:none;font-weight:600}
+.nav-link:hover{background:rgba(55,90,127,0.06)}
+.nav-link.active{background:#0b2b2b;color:#fff}
+
+main.container{max-width:980px}
+footer.container{max-width:980px}
+
+/* Make layout responsive and harmonious with ticket sizes */
+@media (max-width:767px){
+  .navbar-brand{font-size:1rem}
+  .nav{gap:4px;flex-wrap:wrap}
+}
+
+/* utility to center content like ticket wrapper */
+.site-hero{padding:18px 0}
+
+/* Logo in header */
+.site-logo{width:48px;height:48px;object-fit:cover;border-radius:50%;box-shadow:0 6px 18px rgba(11,43,43,0.12);border:2px solid rgba(255,255,255,0.6)}
+.me-2{margin-right:.5rem}
+
+@media (max-width:767px){
+  .site-logo{width:40px;height:40px}
+}
+
+/* Banner styles */
+.site-banner{width:100%;height:260px;overflow:hidden;position:relative;border-bottom:1px solid rgba(0,0,0,0.04)}
+.banner-image{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.9)}
+.banner-title{color:#fff;font-size:clamp(20px,3.2vw,36px);margin:0;padding:18px;font-weight:700;text-shadow:0 6px 18px rgba(0,0,0,0.45)}
+.hero-overlay{position:absolute;left:0;right:0;top:0;bottom:0;display:flex;align-items:flex-end;padding:18px;background:linear-gradient(180deg,rgba(0,0,0,0.0) 40%, rgba(0,0,0,0.5) 100%)}
+
+@media (max-width:991px){
+  .site-banner{height:200px}
+}
+@media (max-width:567px){
+  .site-banner{height:140px}
+  .banner-title{font-size:18px}
+}
+
+/* Footer: inline small logo and simple bar */
+.site-footer{position:fixed;left:12px;bottom:12px;width:auto;background:rgba(255,255,255,0.92);padding:8px 10px;border-radius:8px;box-shadow:0 6px 18px rgba(11,43,43,0.06);z-index:1100}
+.site-footer .container{display:flex;align-items:center;gap:8px;justify-content:flex-start;padding:0}
+.footer-logo{width:36px;height:36px;object-fit:cover;border-radius:6px;box-shadow:0 6px 14px rgba(11,43,43,0.06);border:1px solid rgba(0,0,0,0.06)}
+@media (max-width:576px){
+  .site-footer{left:8px;bottom:8px;padding:6px 8px}
+  .footer-logo{width:28px;height:28px}
+}
+
+

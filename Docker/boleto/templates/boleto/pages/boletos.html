@@ -1,0 +1,48 @@
+{% extends 'boleto/layout.html' %}
+
+{% block title %}Boletos — Komuna Baratza{% endblock %}
+
+{% block content %}
+  <div class="card p-4">
+    <h2>Boletos</h2>
+    <p class="text-muted">Generador de boletos</p>
+
+    <form method="post" class="row g-2 align-items-center">
+      {% csrf_token %}
+      <div class="col-auto">
+        <label for="id_count" class="form-label">Cantidad de boletos</label>
+        <input type="number" id="id_count" name="count" class="form-control" min="1" max="1000" value="1" required>
+      </div>
+      <div class="col-auto mt-4">
+        <button type="submit" class="btn btn-primary">Generar</button>
+      </div>
+    </form>
+
+    {% if error %}
+      <div class="alert alert-danger mt-3">{{ error }}</div>
+    {% endif %}
+
+    {% if generated_tickets %}
+      <hr>
+      <h3>Se generaron {{ count }} boletos</h3>
+  {% load static %}
+  {% static 'boleto/images/goteo.jpeg' as img %}
+  <form method="post" action="{% url 'boleto:download_tickets_pdf' %}" target="_blank" class="mt-2">
+    {% csrf_token %}
+    {% for t in generated_tickets %}
+      <input type="hidden" name="ids" value="{{ t.pk }}">
+    {% endfor %}
+    <button class="btn btn-outline-secondary btn-sm mb-3" type="submit">Descargar todos en PDF</button>
+  </form>
+      <div class="row mt-3">
+        {% for t in generated_tickets %}
+          <div class="col-12 col-md-6 mb-4 d-flex justify-content-center">
+            {% include 'boleto/includes/ticket_card.html' with title=title number=t.number message=message date=date image_url=img %}
+          </div>
+        {% endfor %}
+      </div>
+      
+    {% endif %}
+
+  </div>
+{% endblock %}

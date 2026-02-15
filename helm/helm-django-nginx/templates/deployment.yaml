@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.prefix }}-{{ .Values.nginx.app }}
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.nginx.app }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.nginx.app }}
+    spec:
+      volumes:
+        - name: {{ .Values.nginx.app }}
+          configMap:
+            name: nginx-config
+        - name: staticfiles
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistence.staticPvc }}
+      containers:
+        - name: {{ .Values.nginx.app }}
+          image: {{ .Values.nginx.app }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - mountPath: {{ .Values.nginx.mountPath }}
+              subPath: {{ .Values.nginx.subPath }}
+              name: {{ .Values.nginx.app }}
+            - mountPath: {{.Values.persistence.mountPath }}
+              name: staticfiles

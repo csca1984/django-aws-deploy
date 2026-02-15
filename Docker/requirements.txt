@@ -1,0 +1,6 @@
+WeasyPrint
+Django>=4.2
+gunicorn
+weasyprint
+psycopg2-binary
+python-dotenv

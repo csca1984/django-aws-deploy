@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: staticfiles-pvc
+  namespace: {{.Values.namespace}}
+spec:
+  storageClassName: manual
+  volumeName: staticfiles-pv
+  accessModes:
+    - {{.Values.persistence.accessModes}}
+  resources:
+    requests:
+      storage: {{.Values.persistence.storage}}

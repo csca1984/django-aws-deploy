@@ -1,0 +1,41 @@
+{% load static %}
+
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Boletos PDF</title>
+
+<link rel="stylesheet" href="{{ css_url }}">
+
+<style>
+  @page { size: A4; margin: 12mm; }
+
+  body { background: white; font-family: sans-serif; }
+
+  /* --- LAYOUT QUE WEASYPRINT SÍ AGUANTA --- */
+  .ticket-container {
+      width: 48%;
+      float: left;
+      margin: 1%;
+      page-break-inside: avoid;
+  }
+
+  .clear { clear: both; }
+</style>
+</head>
+
+<body>
+
+{% for t in generated_tickets %}
+  <div class="ticket-container">
+    {% include "boleto/includes/ticket_card.html" with title=title number=t.number message=message date=date precio=precio image_url=image_url %}
+  </div>
+
+  {% if forloop.counter|divisibleby:2 %}
+     <div class="clear"></div>
+  {% endif %}
+{% endfor %}
+
+</body>
+</html>
