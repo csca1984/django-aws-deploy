@@ -1,6 +1,6 @@
 # Django AWS Deployment
 
-Aplicación Django desplegada automï¿½ticamente en AWS usando Docker, Docker Compose y GitHub Actions. La infraestructura se gestiona con Terraform y el despliegue se realiza en instancias EC2 mediante CI/CD.
+Aplicación Django desplegada automáticamente en AWS usando Docker, Docker Compose y GitHub Actions. La infraestructura se gestiona con Terraform y el despliegue se realiza en instancias EC2 mediante CI/CD.
 
 Nota:
 Este proyecto está desplegado en una cuenta personal de AWS. Algunas decisiones (como no usar ALB + ACM) están orientadas a evitar costes recurrentes.
@@ -10,7 +10,7 @@ Tambien esta creados los despliegues con Helm Chart para tener la posibilidad de
 Django requiere un dominio válido para servir correctamente estáticos.
 Al desplegar sobre una IP pública sin DNS, ALLOWED_HOSTS limita el acceso.
 En un entorno real, se usará Route53 + dominio o S3.
- para probar http:<ip-publica-EC2>:8090
+ para probar http:ip-publica-EC2:8090
 
 ##  Descripción
 
@@ -97,6 +97,10 @@ django-aws-deploy/
 
 Nota: se copia en la raiz del respositorio nginx.conf, docker-compose.yml, .env para facilitar el despliegue.
 
+##  Docker-compose
+
+![Arquitectura Docker-comose](./images/django_diagrama.png)
+
 ##  Configuración Inicial
 
 ### 1. Clonar el repositorio
@@ -167,6 +171,12 @@ Ve a tu repositorio GitHub  **Settings**  **Secrets and variables**  **Actions**
 | EC2_USER | ec2-user |
 
 > ** Importante**: `EC2_HOST` necesita actualizarse cada vez que cambia la IP pública de la instancia.
+
+Para cuentas nuevas de AWS
+
+Nota: - hay que cambiar la cuenta de AWS en Docker/aws/compilar_docker_aws.sh para que apunte a la cuenta correspondiente
+      - Tambiar hay que cambiar el github action la url del ecr
+
 
 
 ##  Pipeline CI/CD (GitHub Actions)
@@ -290,7 +300,7 @@ docker-compose -f /home/ec2-user/app/docker-compose.yml logs -f
 -  SSH key-based auth
 -  Variables de ambiente protegidas
 
-**Checklist pre-producciï¿½n:**
+**Checklist pre-producción:**
 - [ ] DJANGO_SECRET_KEY fuerte y único
 - [ ] DEBUG=False
 - [ ] ALLOWED_HOSTS con dominio real
